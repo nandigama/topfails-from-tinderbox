@@ -1,0 +1,4 @@
+\.pyc$
+
+# SQLite database file.
+^unittest\.db$

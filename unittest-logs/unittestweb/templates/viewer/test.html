@@ -1,0 +1,8 @@
+<h1>Test results for {{ test }}</h1>
+<ul>
+  <li style="display:none"><ul>
+{% for f in failures %}{% ifchanged f.build.id %}</ul></li><li>
+<a href="{{ f.build.tinderbox_link|safe }}">{{ f.build.startdate|date:"Y-m-d H:i" }} {{ f.build.tree }} {{ f.build.get_os_display }}</a> [{{ f.build.changeset_link|safe }}]:
+  <ul>{% endifchanged %}
+  <li>{{ f.description }}</li>{% endfor %}
+</ul>

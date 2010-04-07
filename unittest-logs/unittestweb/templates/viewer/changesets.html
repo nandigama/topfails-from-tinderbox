@@ -1,0 +1,6 @@
+<h1>Changesets</h1>
+<ul>
+{% for c in changesets %}
+  <li><a href="{% url viewer.views.changeset c %}">{{ c }}</a></li>
+{% endfor %}
+</ul>

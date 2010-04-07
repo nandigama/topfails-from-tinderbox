@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>Timeline for {{ test }}</title>
+<script src="http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js?autoCreate=false"
+        type="text/javascript"></script>
+<script src="http://static.simile.mit.edu/exhibit/extensions-2.0/time/time-extension.js"></script>
+
+<script type="application/javascript">
+var json = {"items": [
+{% for bd in builds %}
+  {
+    "type": "Build",
+    "id": "bld{{ bd.build.id }}",
+    "label": "{{ bd.os }} {{ bd.build.changeset }}",
+    "desc": "{{ bd.description|escapejs|escape }}",
+    "desc_id": "{{ bd.desctype }}",
+    "time": "{{ bd.time }}",
+    "os": "{{ bd.os }}",
+    "rev": "{{ bd.build.changeset }}",
+  },
+{% endfor %}
+  ],
+"properties": {
+  "time": {"valueType": "date"},
+  }
+};
+
+$(document).ready(function() {
+  window.database = Exhibit.Database.create();
+  window.database.loadData(json);
+  window.exhibit = Exhibit.create();
+  window.exhibit.configureFromDOM();
+});
+
+
+</script>
+</head>
+
+<body>
+<h2>Timeline for {{ test }}</h2>
+
+<div ex:role="lens" ex:itemTypes="Build">
+  <div><span ex:content=".os"></span> <a
+  ex:href-subcontent="http://hg.mozilla.org/mozilla-central/rev/&#123;{.rev}&#125;"
+  target="_blank" ex:content=".rev"></a></div> <pre ex:content=".desc"></pre>
+</div>
+<div id="blds" ex:role="exhibit-collection" ex:itemTypes="Build"></div>
+
+<div ex:role="view"
+     ex:viewClass="Timeline" 
+     ex:start=".time"
+     ex:topBandPixelsPerUnit="50",
+     ex:bottomBandPixelsPerUnit="50",
+></div>
+<table border="0">
+  <tr>
+    <td>
+{% for desc in descriptions %}
+<pre>{{desc}}</pre>
+{% endfor %}
+    </td>
+    <td valign="top" style="padding-left: 5em;">
+      <div ex:role="facet" ex:expression=".desc_id"
+          ex:facetLabel="Description"></div>
+    </td>
+    <td valign="top" style="padding-left: 5em;">
+      <div ex:role="facet" ex:expression=".os"
+          ex:facetLabel="OS"></div>
+    </td>
+  </tr>
+</table>
+</body> </html>

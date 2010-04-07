@@ -1,0 +1,6 @@
+<h1>All known failing tests</h1>
+<ul>
+{% for t in tests %}
+  <li><a href="{% url viewer.views.test %}?name={{ t }}">{{ t }}</a></li>
+{% endfor %}
+</ul>
