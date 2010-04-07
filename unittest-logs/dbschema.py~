@@ -54,21 +54,21 @@ def CreateDBSchema(conn):
  
   
   conn.execute("""
-               CREATE TABLE IF NOT EXISTS trees( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name TEXT) ENGINE MyISAM
+               CREATE TABLE IF NOT EXISTS trees( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name TEXT)
                """)
 
   conn.execute("""
-               CREATE TABLE IF NOT EXISTS builds(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, treeid INT, os INT, starttime INT, status INT, changeset TEXT, logfile TEXT) ENGINE MyISAM
+               CREATE TABLE IF NOT EXISTS builds(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, treeid INT, os INT, starttime INT, status INT, changeset TEXT, logfile TEXT)
               """)
   conn.execute("""
                CREATE INDEX builds_starttime ON builds (starttime)
                """)
 
   conn.execute("""
-               CREATE TABLE IF NOT EXISTS tests (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, buildid INT, name TEXT, description TEXT) ENGINE MyISAM
+               CREATE TABLE IF NOT EXISTS tests (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, buildid INT, name TEXT, description TEXT)
                """)
   conn.execute("""
-               CREATE INDEX tests_name ON tests (name(255))
+               CREATE INDEX tests_name ON tests (name(1024))
                """)
 
 
