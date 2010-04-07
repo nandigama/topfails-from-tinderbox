@@ -65,7 +65,7 @@ def CreateDBSchema(conn):
                """)
 
   conn.execute("""
-               CREATE TABLE IF NOT EXISTS tests (buildid INT, name TEXT, description TEXT)
+               CREATE TABLE IF NOT EXISTS tests (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, buildid INT, name TEXT, description TEXT)
                """)
   conn.execute("""
                CREATE INDEX tests_name ON tests (name(1024))

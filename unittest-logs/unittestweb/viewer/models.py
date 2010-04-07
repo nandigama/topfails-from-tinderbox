@@ -75,6 +75,6 @@ class Tests(models.Model):
 
 def get_most_failing_tests():
     cursor = connection.cursor()
-    cursor.execute("select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid  group by builds.id, name) group by name order by count(*) desc limit 250")
+    cursor.execute("select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid  group by builds.id, name) aaa group by name order by count(*) desc limit 250")
     for row in cursor:
         yield row

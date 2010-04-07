@@ -141,9 +141,8 @@ def GetOrInsertTree(conn, tree):
   table, insert a new row and return the id."""
   
   conn.execute("""SELECT id FROM trees WHERE name = %s""", (tree))
-  rows = conn.fetchone()
-  if len(rows) > 0:
-    return rows[0]
+  if conn.rowcount > 0:
+    return conn.lastrowid
 
   # need to insert it
   conn.execute("""INSERT INTO trees (name) VALUES (%s)""", (tree,))
