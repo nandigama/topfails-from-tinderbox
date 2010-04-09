@@ -178,7 +178,7 @@ def reformat_content(data):
   return p.sub(asciirepl, data)
   
   
-def fix_tbox_json(s): 
+def fix_tbox_json(s): # Check :: This is a bad logic by  :: not checking for CRTL chars in JSON text -- Murali
   """Fixes up tinderbox json.
 
   Tinderbox returns strings as single-quoted strings, and occasionally

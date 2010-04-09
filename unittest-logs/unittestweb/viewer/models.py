@@ -103,6 +103,5 @@ def get_fails_in_timerange(self):
   statement = "select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid where builds.starttime >"+str(curtime)+" group by builds.id, name) aaa group by name order by count(*) DESC"
   cursor.execute(statement)
   for row in cursor:
-    print row
     yield row
     
