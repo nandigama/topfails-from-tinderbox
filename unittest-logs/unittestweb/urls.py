@@ -15,4 +15,5 @@ urlpatterns = patterns('unittestweb.viewer.views',
     (r'^test$', 'test'),
     (r'^timeline$', 'timeline'),
     (r'^topfails$', 'topfails'),
+    (r'^failswindow$','failswindow'),
 )

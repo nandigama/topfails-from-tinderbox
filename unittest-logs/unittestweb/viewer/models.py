@@ -6,10 +6,10 @@
 #
 # Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
 # into your database.
-
+import re
 from django.db import models, connection
 from datetime import datetime
-
+from time import ctime, sleep, time
 class OS():
   Windows = 0
   Mac = 1
@@ -75,6 +75,34 @@ class Tests(models.Model):
 
 def get_most_failing_tests():
     cursor = connection.cursor()
-    cursor.execute("select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid  group by builds.id, name) aaa group by name order by count(*) desc limit 250")
+    cursor.execute("select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid  group by builds.id, name) aaa group by name order by count(*) desc limit 25")
     for row in cursor:
         yield row
+
+def get_fails_in_timerange(self):
+  
+  # Get current time, in seconds.
+  endtime = int(time())
+  
+  #print endtime
+  m = re.match("(\d+)([ymwdh])", self)
+  #print m.group(1), m.group(2)
+  if m is None:
+    print >>sys.stderr, "ERROR: bad timespan = '%s'!" % options.timespan
+    sys.exit(1)
+  
+  timespan = int(m.group(1)) * {'y': 365 * 24 * 3600,
+                                'm':  30 * 24 * 3600,
+                                'w':   7 * 24 * 3600,
+                                'd':       24 * 3600,
+                                'h':            3600}[m.group(2)]
+  # Set current time to beginning of requested timespan ending now.
+  curtime = endtime - timespan
+  #print curtime, timespan, endtime-curtime
+  cursor = connection.cursor()
+  statement = "select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid where builds.starttime >"+str(curtime)+" group by builds.id, name) aaa group by name order by count(*) DESC"
+  cursor.execute(statement)
+  for row in cursor:
+    print row
+    yield row
+    

@@ -1,0 +1,7 @@
+<h1>Failed tests from last {{n}} {{d}} up to now</h1>
+<table>
+<tr><th>Count</th><th align="left">Test name</th></tr>
+{% for f in failures %}
+  <tr><td>{{ f.0 }}</td><td><a href="{% url viewer.views.test %}?name={{ f.1 }}">{{ f.1 }}</a></td></tr>
+{% endfor %}
+</table>

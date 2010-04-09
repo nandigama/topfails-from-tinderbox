@@ -46,6 +46,8 @@ from time import ctime, sleep, time
 from math import ceil
 from optparse import OptionParser
 from gzip import GzipFile
+import curses.ascii
+import binascii
 
 try:
   # 'Availability: Unix.'
@@ -166,7 +168,17 @@ def InsertTest(conn, buildid, result, name, description):
   # ToDo: Add column to save result.
   conn.execute("""INSERT INTO tests (buildid, name, description) VALUES (%s, %s, %s)""", (buildid, name, description))
 
-def fix_tbox_json(s): # Check :: This seems to be a problem ? Murali
+def asciirepl(match):
+  # replace the hexadecimal characters with ascii characters
+  s = match.group()  
+  return binascii.unhexlify(s)  
+
+def reformat_content(data):
+  p = re.compile(r'\\x(\w{2})')
+  return p.sub(asciirepl, data)
+  
+  
+def fix_tbox_json(s): # Check :: This is a bad logic by  :: not checking for CRTL chars in JSON text -- Murali
   """Fixes up tinderbox json.
 
   Tinderbox returns strings as single-quoted strings, and occasionally
@@ -186,43 +198,46 @@ def fix_tbox_json(s): # Check :: This seems to be a problem ? Murali
   in_esc = False
   skip = 0
   for i,c in enumerate(json_data):
-    if skip > 0:
-      skip -= 1
-      continue
-
-    if in_str:
-      if in_esc:
-        if c == "'":
-          retval.append("'")
+    # The tinderbox data is a fracked json. and it some times contains
+    # Control characters. that would totally fail the json.loads step.
+    # So, eliminate them .. all of them .. here -- Murali
+    if (c < '\xFD' and c > '\x1F') or c == '\n' or c == '\r' :
+      if skip > 0:
+        skip -= 1
+        continue
+  
+      if in_str:
+        if in_esc:
+          if c == "'":
+            retval.append("'")
+          else:
+            retval.append("\\")
+            retval.append(c)
+          in_esc = False
+        elif c == "\\":
+          in_esc = True
+        elif c == "\"":
+          retval.append("\\\"")
+        elif c == "'":
+          if json_data[i:i+7] == "'undef'":
+            retval.append("'undef'")
+            skip = 7
+          else:
+            retval.append("\"")
+            in_str = False
         else:
-          retval.append("\\")
           retval.append(c)
-        in_esc = False
-      elif c == "\\":
-        in_esc = True
-      elif c == "\"":
-        retval.append("\\\"")
-      elif c == "'":
-        if json_data[i:i+7] == "'undef'":
-          retval.append("'undef'")
-          skip = 7
-        else:
+      else:
+        if c == "'":
           retval.append("\"")
-          in_str = False
-      else:
-        retval.append(c)
-    else:
-      if c == "'":
-        retval.append("\"")
-        in_str = True
-      else:
-        retval.append(c)
-
+          in_str = True
+        else:
+          retval.append(c)
   return "".join(retval)
 
 parser = OptionParser()
 parser.add_option("-s", "--span", action="store",
-                  dest="timespan", default="15d",
+                  dest="timespan", default="20d",
                   help="Period of time to fetch data for (N[y,m,w,d,h], default=%default)")
 parser.add_option("-t", "--tree", action="store",
                   dest="tree", default="Firefox",
@@ -335,9 +350,11 @@ while curtime < endtime and chunk < totalchunks:
                  'maxdate': curtime + chunksize, # tbox wants the end time
                  'hours': int(chunksize / S_IN_H)}
   u = urllib.urlopen(tboxurl)
-  tboxjson = ''.join(u.readlines())
+  tboxjson = u.read()
+  #tboxjson = tboxjson.encode('utf-8').decode('string_escape').decode('utf-8')
+  #tboxjson = ''.join(u.readlines())
   u.close()
-
+  
   tboxjson = fix_tbox_json(tboxjson)
   try:
     tboxdata = json.loads(tboxjson)
@@ -399,7 +416,17 @@ while curtime < endtime and chunk < totalchunks:
           for line in gz:
             m = testfailedRe.match(line)
             if m:
-              test = m.group(2).strip() or "[unittest-log.py: no logged test]"
+              test = rawtest = m.group(2).strip() or "[unittest-log.py: no logged test]"
+              if rawtest.find('\\') != -1:
+                test = rawtest.replace('\\','/')
+                
+              if test.find('/') != -1:
+                tup=test.partition('build/')
+                if len(tup[2]) > 2:
+                  test=tup[2]
+                else :
+                  test=tup[0]
+                
               text = m.group(3).strip() or "[unittest-log.py: no logged text]"
               InsertTest(conn, buildid, m.group(1).rstrip(), test, text)
         except:

@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, get_list_or_404
-from unittestweb.viewer.models import Builds, Trees, Tests, OS_CHOICES, get_most_failing_tests
+from unittestweb.viewer.models import Builds, Trees, Tests, OS_CHOICES, get_most_failing_tests, get_fails_in_timerange
+import re
 
 def index(request):
   failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
@@ -53,3 +54,24 @@ def timeline(request):
   return render_to_response('viewer/timeline.html', {'test': name,
                                                      'descriptions': desc_list,
                                                      'builds': buildlist})
+
+def failswindow(request):
+  period=request.GET['window']
+  m = re.match("(\d+)([ymwdh])", period)
+  failures = get_fails_in_timerange(period)
+  if m.group(2) == 'd':
+    prd='days'
+  elif m.group(2) == 'h':
+    prd = 'hours'
+  elif m.group(2) == 'w':
+    prd = 'weeks'
+  elif m.group(2) == 'm':
+    prd = 'months'
+  elif m.group(2) == 'y':
+    prd = 'years'
+  else:
+    prd = 'days'
+  
+    
+  return render_to_response('viewer/failswindow.html', {'failures': failures,'n':m.group(1),'d':prd})
+  
