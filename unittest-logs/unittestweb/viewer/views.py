@@ -3,8 +3,11 @@ from unittestweb.viewer.models import Builds, Trees, Tests, OS_CHOICES, get_most
 import re
 
 def index(request):
+  return render_to_response('viewer/index.html')
+
+def latest(request):
   failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
-  return render_to_response('viewer/index.html', {'failures': failures})
+  return render_to_response('viewer/latest.html', {'failures': failures})
 
 def trees(request):
   alltrees = Trees.objects.all().order_by('name')
@@ -33,6 +36,9 @@ def test(request):
 def topfails(request):
   failures = get_most_failing_tests()
   return render_to_response('viewer/topfails.html', {'failures': failures})
+  
+def Help(request):
+  return render_to_response('viewer/Help.html')  
   
 def timeline(request):
   name = request.GET['name']
