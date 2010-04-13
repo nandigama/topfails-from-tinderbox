@@ -9,6 +9,14 @@ def latest(request):
   failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
   return render_to_response('viewer/latest.html', {'failures': failures})
 
+def index(request):
+  failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
+  return render_to_response('viewer/index.html', {'failures': failures})
+
+def base(request):
+  return render_to_response('viewer/base.html')
+
+
 def trees(request):
   alltrees = Trees.objects.all().order_by('name')
   return render_to_response('viewer/trees.html', {'trees': alltrees})

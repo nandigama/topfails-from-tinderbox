@@ -1,4 +1,6 @@
-<h1>Test results for {{ test }}</h1>
+{% extends "base.html" %}
+{% block content %}
+<h3>Test results for {{ test }}</h3>
 <ul>
   <li style="display:none"><ul>
 {% for f in failures %}{% ifchanged f.build.id %}</ul></li><li>
@@ -6,3 +8,4 @@
   <ul>{% endifchanged %}
   <li>{{ f.description }}</li>{% endfor %}
 </ul>
+{% endblock %}

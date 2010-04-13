@@ -1,6 +1,14 @@
-<h1>All known failing tests</h1>
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+  li {
+    padding-bottom: 10px;  }
+  </style>
+
+<h3>All known failing tests</h3>
 <ul>
 {% for t in tests %}
   <li><a href="{% url viewer.views.test %}?name={{ t }}">{{ t }}</a></li>
 {% endfor %}
 </ul>
+{% endblock %}

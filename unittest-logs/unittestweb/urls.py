@@ -18,4 +18,5 @@ urlpatterns = patterns('unittestweb.viewer.views',
     (r'^failswindow$','failswindow'),
     (r'^latest$','latest'),
     (r'^Help$','Help'),
+    (r'^base$','base'),
 )

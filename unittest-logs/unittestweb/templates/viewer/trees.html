@@ -1,7 +1,10 @@
-<h1>Trees</h1>
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Trees</h3>
 <ul>
 {% for tree in trees %}
   <li><a href="{% url viewer.views.tree tree.name %}">{{ tree.name }}</a></li>
 {% endfor %}
 </ul>
-
+{% endblock %}
