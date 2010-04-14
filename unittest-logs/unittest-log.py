@@ -108,9 +108,9 @@ def FindChangesetInScrape(scrape):
   return None
 
 def OSFromBuilderName(name):
-  if name.startswith("Linux"):
+  if name.startswith("Linux") or name.startswith("Rev3 Fedora") or name.startswith("Fedora"):
     return OS.Linux
-  if name.startswith("MacOSX") or name.startswith("OS X"):
+  if name.startswith("MacOSX") or name.startswith("OS X") or name.startswith("Rev3 MacOSX"):
     return OS.Mac
   if name.startswith("WINNT"):
     return OS.Windows
