@@ -58,6 +58,8 @@ class Builds(models.Model):
         return datetime.fromtimestamp(self.starttime)
     def changeset_link(self):
       return '<a href="%s/rev/%s">%s</a>' % ("http://hg.mozilla.org/mozilla-central", self.changeset, self.changeset)
+    def json_changeset_link(self):
+      return "%s/rev/%s" %  ("http://hg.mozilla.org/mozilla-central", self.changeset)
     def tinderbox_link(self):
       if self.logfile:
         return "http://tinderbox.mozilla.org/showlog.cgi?log=%s/%s" % (self.tree.name, self.logfile)

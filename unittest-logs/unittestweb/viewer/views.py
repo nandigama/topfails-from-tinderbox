@@ -1,13 +1,21 @@
 from django.shortcuts import render_to_response, get_list_or_404
 from unittestweb.viewer.models import Builds, Trees, Tests, OS_CHOICES, get_most_failing_tests, get_fails_in_timerange
 import re
+from django.http import HttpResponse
+import json
 
 def index(request):
   return render_to_response('viewer/index.html')
 
 def latest(request):
+  if request.GET.has_key('tree'):
+    tree =request.GET['tree']
   failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
-  return render_to_response('viewer/latest.html', {'failures': failures})
+  if request.GET.has_key('json'):
+    jtext = [{"Test_name":f.name, "Build_status":f.build.status, "Logfile": f.build.tinderbox_link(),"Changeset":f.build.json_changeset_link() , "Failure_description":f.description} for f in failures]
+    return HttpResponse(json.dumps(jtext))
+  else:
+    return render_to_response('viewer/latest.html', {'failures': failures})
 
 def index(request):
   failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
@@ -35,7 +43,11 @@ def changeset(request, changeset):
 
 def tests(request):
     test_names = Tests.objects.values('name').distinct()
-    return render_to_response('viewer/tests.html', {'tests': [t['name'] for t in test_names]})
+    if request.GET.has_key('json'):
+      jtext = list(test_names)
+      return HttpResponse(json.dumps(jtext))
+    else:
+      return render_to_response('viewer/tests.html', {'tests': [t['name'] for t in test_names]})
 
 def test(request):
   failures = get_list_or_404(Tests.objects.filter(name__exact=request.GET['name']).order_by('-build__starttime'))
@@ -43,7 +55,11 @@ def test(request):
 
 def topfails(request):
   failures = get_most_failing_tests()
-  return render_to_response('viewer/topfails.html', {'failures': failures})
+  if request.GET.has_key('json'):
+    jtext = list(failures)
+    return HttpResponse(json.dumps(jtext))
+  else:
+    return render_to_response('viewer/topfails.html', {'failures': failures})
   
 def Help(request):
   return render_to_response('viewer/Help.html')  
