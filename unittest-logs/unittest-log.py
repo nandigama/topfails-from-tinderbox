@@ -144,7 +144,7 @@ def GetOrInsertTree(conn, tree):
   
   conn.execute("""SELECT id FROM trees WHERE name = %s""", (tree))
   if conn.rowcount > 0:
-    return conn.lastrowid
+    return conn.fetchone()[0]
 
   # need to insert it
   conn.execute("""INSERT INTO trees (name) VALUES (%s)""", (tree,))
@@ -406,7 +406,7 @@ while curtime < endtime and chunk < totalchunks:
         pass
 
       # Parse log to save 'TestFailed' results.
-      elif status == BuildStatus.TestFailed:
+      elif status == BuildStatus.TestFailed or status == BuildStatus.Burning or status == BuildStatus.Burning:
         logging.info("Checking build log for '%s' at %d (%s)" % (name, starttime, ctime(starttime)))
         try:
           # Grab the build log.
@@ -433,14 +433,14 @@ while curtime < endtime and chunk < totalchunks:
           logging.error("Unexpected error: %s" % sys.exc_info()[0])
           #XXX: handle me?
 
-      # Ignore 'Burning' builds: tests may have run nontheless, but it's safer to discard them :-|
-      elif status == BuildStatus.Burning:
-        continue
-
-      # Ignore 'Exception' builds: should only be worse than 'Burning'.
-      # (Don't know much at time of writing, since this feature is not active yet: see bug 476656 and follow-ups.)
-      elif status == BuildStatus.Exception:
-        continue
+      ## Ignore 'Burning' builds: tests may have run nontheless, but it's safer to discard them :-|
+      #elif status == BuildStatus.Burning:
+      #  continue
+      #
+      ## Ignore 'Exception' builds: should only be worse than 'Burning'.
+      ## (Don't know much at time of writing, since this feature is not active yet: see bug 476656 and follow-ups.)
+      #elif status == BuildStatus.Exception:
+      #  continue
 
       # Save 'Unknown' status failure: this should not happen (unless new statuses are created), but we want to know if it does.
       elif status == BuildStatus.Unknown:
