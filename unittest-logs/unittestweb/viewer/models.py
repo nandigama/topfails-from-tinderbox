@@ -76,6 +76,9 @@ class Tests(models.Model):
         db_table = 'tests'
 
 def get_most_failing_tests(tree):
+    return Tests.objects.filter(build__tree__name=tree).values('name').annotate(count=models.Count('name')).order_by('-count')[:25]
+
+def get_time_failing_tests(tree):
     return Tests.objects.filter(build__tree__name=tree).values('name').annotate(count=models.Count('name')).order_by('-count')
 
 def get_fails_in_timerange(self,tree):
@@ -97,7 +100,7 @@ def get_fails_in_timerange(self,tree):
                                 'h':            3600}[m.group(2)]
   # Set current time to beginning of requested timespan ending now.
   curtime = endtime - timespan
-  qs = get_most_failing_tests(tree)
+  qs = get_time_failing_tests(tree)
   return qs.filter(build__starttime__gt=curtime)
 
     

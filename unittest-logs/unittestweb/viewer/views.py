@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import json
 
 def latest(request,tree='Firefox'):
-  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime'))[:10]
+  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime')[:20])
   if request.GET.has_key('json'):
     jtext = [{"Test_name":f.name, "Build_status":f.build.status, "Logfile": f.build.tinderbox_link(),"Changeset":f.build.json_changeset_link() , "Failure_description":f.description} for f in failures]
     return HttpResponse(json.dumps(jtext))
@@ -13,7 +13,7 @@ def latest(request,tree='Firefox'):
     return render_to_response('viewer/latest.html', {'failures': failures, 'tree' : tree})
 
 def index(request,tree='Firefox'):
-  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime')[:10])
+  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime')[:20])
   return render_to_response('viewer/index.html', {'failures': failures, 'tree' : tree})
 
 
@@ -46,7 +46,7 @@ def test(request,tree='Firefox'):
   return render_to_response('viewer/test.html', {'test': request.GET['name'], 'failures': failures, 'tree' : tree})
 
 def topfails(request,tree='Firefox'):
-  failures = get_most_failing_tests(tree)[:25]
+  failures = get_most_failing_tests(tree)
   if request.GET.has_key('json'):
     jtext = list(failures)
     return HttpResponse(json.dumps(jtext))
