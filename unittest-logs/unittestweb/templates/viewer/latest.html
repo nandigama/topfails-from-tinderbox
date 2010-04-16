@@ -7,8 +7,8 @@
 <h3>Most recent test failures</h3>
 <ul>
 {% for f in failures %}
-  <li>{{ f.build.startdate|date:"Y-m-d H:i" }} {{ f.build.tree.name }} {{ f.build.get_os_display }}: <a href="{% url viewer.views.test %}?name={{ f.name }}">{{ f.name }}</a>,
-  <a href="{% url viewer.views.timeline %}?name={{ f.name }}">timeline</a>
+  <li>{{ f.build.startdate|date:"Y-m-d H:i" }} {{ f.build.tree.name }} {{ f.build.get_os_display }}: <a href="{% url viewer.views.test tree=tree %}?name={{ f.name }}">{{ f.name }}</a>,
+  <a href="{% url viewer.views.timeline tree=tree %}?name={{ f.name }}">timeline</a>
    - {{ f.description }}</li>
 {% endfor %}
 </ul>

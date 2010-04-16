@@ -75,13 +75,10 @@ class Tests(models.Model):
     class Meta:
         db_table = 'tests'
 
-def get_most_failing_tests():
-    cursor = connection.cursor()
-    cursor.execute("select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid  group by builds.id, name) aaa group by name order by count(*) desc limit 25")
-    for row in cursor:
-        yield row
+def get_most_failing_tests(tree):
+    return Tests.objects.filter(build__tree__name=tree).values('name').annotate(count=models.Count('name')).order_by('-count')
 
-def get_fails_in_timerange(self):
+def get_fails_in_timerange(self,tree):
   
   # Get current time, in seconds.
   endtime = int(time())
@@ -100,10 +97,7 @@ def get_fails_in_timerange(self):
                                 'h':            3600}[m.group(2)]
   # Set current time to beginning of requested timespan ending now.
   curtime = endtime - timespan
-  #print curtime, timespan, endtime-curtime
-  cursor = connection.cursor()
-  statement = "select count(*), name from (select builds.id, name from builds inner join tests on builds.id = tests.buildid where builds.starttime >"+str(curtime)+" group by builds.id, name) aaa group by name order by count(*) DESC"
-  cursor.execute(statement)
-  for row in cursor:
-    yield row
+  qs = get_most_failing_tests(tree)
+  return qs.filter(build__starttime__gt=curtime)
+
     

@@ -4,69 +4,61 @@ import re
 from django.http import HttpResponse
 import json
 
-def index(request):
-  return render_to_response('viewer/index.html')
-
-def latest(request):
-  if request.GET.has_key('tree'):
-    tree =request.GET['tree']
-  failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
+def latest(request,tree='Firefox'):
+  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime'))[:10]
   if request.GET.has_key('json'):
     jtext = [{"Test_name":f.name, "Build_status":f.build.status, "Logfile": f.build.tinderbox_link(),"Changeset":f.build.json_changeset_link() , "Failure_description":f.description} for f in failures]
     return HttpResponse(json.dumps(jtext))
   else:
-    return render_to_response('viewer/latest.html', {'failures': failures})
+    return render_to_response('viewer/latest.html', {'failures': failures, 'tree' : tree})
 
-def index(request):
-  failures = get_list_or_404(Tests.objects.all().order_by('-build__starttime')[:10])
-  return render_to_response('viewer/index.html', {'failures': failures})
-
-def base(request):
-  return render_to_response('viewer/base.html')
+def index(request,tree='Firefox'):
+  failures = get_list_or_404(Tests.objects.filter(build__tree__name=tree).order_by('-build__starttime')[:10])
+  return render_to_response('viewer/index.html', {'failures': failures, 'tree' : tree})
 
 
-def trees(request):
+def trees(request,tree='Firefox'):
   alltrees = Trees.objects.all().order_by('name')
-  return render_to_response('viewer/trees.html', {'trees': alltrees})
+  return render_to_response('viewer/trees.html', {'trees': alltrees , 'tree' : tree})
 
-def tree(request, tree):
+def tree(request, tree='Firefox'):
   newestbuilds = get_list_or_404(Builds.objects.filter(tree__name__exact=tree).order_by('-starttime')[:5])
   return render_to_response('viewer/tree.html', {'tree': tree, 'newestbuilds': newestbuilds})
 
-def changesets(request):
-  build_csets = Builds.objects.values('changeset').distinct()
-  return render_to_response('viewer/changesets.html', {'changesets': [b['changeset'] for b in build_csets]})
+def changesets(request,tree='Firefox'):
+  build_csets = Builds.objects.filter(tree__name__exact=tree).values('changeset').distinct()
+  return render_to_response('viewer/changesets.html', { 'tree' : tree,'changesets': [b['changeset'] for b in build_csets]})
 
-def changeset(request, changeset):
+def changeset(request, changeset,tree='Firefox'):
   builds = get_list_or_404(Builds, changeset__exact=changeset)
-  return render_to_response('viewer/changeset.html', {'changeset': changeset, 'builds': builds})
+  return render_to_response('viewer/changeset.html', {'changeset': changeset, 'builds': builds, 'tree' : tree})
 
-def tests(request):
-    test_names = Tests.objects.values('name').distinct()
+def tests(request,tree='Firefox'):
+    test_names = Tests.objects.filter(build__tree__name__exact=tree).values('name').distinct()
     if request.GET.has_key('json'):
       jtext = list(test_names)
       return HttpResponse(json.dumps(jtext))
     else:
-      return render_to_response('viewer/tests.html', {'tests': [t['name'] for t in test_names]})
+      return render_to_response('viewer/tests.html', { 'tree' : tree, 'tests': [t['name'] for t in test_names]})
 
-def test(request):
-  failures = get_list_or_404(Tests.objects.filter(name__exact=request.GET['name']).order_by('-build__starttime'))
-  return render_to_response('viewer/test.html', {'test': request.GET['name'], 'failures': failures})
+def test(request,tree='Firefox'):
+  failures = get_list_or_404(Tests.objects.filter(build__tree__name__exact=tree).filter(name__exact=request.GET['name']).order_by('-build__starttime'))
+  return render_to_response('viewer/test.html', {'test': request.GET['name'], 'failures': failures, 'tree' : tree})
 
-def topfails(request):
-  failures = get_most_failing_tests()
+def topfails(request,tree='Firefox'):
+  failures = get_most_failing_tests(tree)[:25]
   if request.GET.has_key('json'):
     jtext = list(failures)
     return HttpResponse(json.dumps(jtext))
   else:
-    return render_to_response('viewer/topfails.html', {'failures': failures})
+    return render_to_response('viewer/topfails.html', {'failures': failures, 'tree' : tree})
   
-def Help(request):
-  return render_to_response('viewer/Help.html')  
+def Help(request,tree):
+  return render_to_response('viewer/Help.html',{'tree':tree})  
   
-def timeline(request):
+def timeline(request,tree='Firefox'):
   name = request.GET['name']
-  builds = get_list_or_404(Builds, tests__name__exact=name)
+  builds = get_list_or_404(Builds.objects.filter(tree__name__exact=tree), tests__name__exact=name)
   buildlist = []
   desc_list = []
   for b in builds:
@@ -83,12 +75,12 @@ def timeline(request):
                       })
   return render_to_response('viewer/timeline.html', {'test': name,
                                                      'descriptions': desc_list,
-                                                     'builds': buildlist})
+                                                     'builds': buildlist, 'tree' : tree})
 
-def failswindow(request):
+def failswindow(request,tree='Firefox'):
   period=request.GET['window']
   m = re.match("(\d+)([ymwdh])", period)
-  failures = get_fails_in_timerange(period)
+  failures = get_fails_in_timerange(period,tree)
   if request.GET.has_key('json'):
     jtext = list(failures)
     return HttpResponse(json.dumps(jtext))
@@ -107,5 +99,5 @@ def failswindow(request):
       prd = 'days'
     
       
-    return render_to_response('viewer/failswindow.html', {'failures': failures,'n':m.group(1),'d':prd})
+    return render_to_response('viewer/failswindow.html', {'failures': failures,'n':m.group(1),'d':prd, 'tree' : tree})
     

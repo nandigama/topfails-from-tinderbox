@@ -8,7 +8,7 @@
 <h3>All known failing tests</h3>
 <ul>
 {% for t in tests %}
-  <li><a href="{% url viewer.views.test %}?name={{ t }}">{{ t }}</a></li>
+  <li><a href="{% url viewer.views.test tree=tree %}?name={{ t }}">{{ t }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
