@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('unittestweb.viewer.views',
-    #url(r'^(?P<tree>.+)?$', 'latest', name='index'),
+    (r'^$', 'index'),
     url(r'^trees/(?P<tree>.+)?$','trees', name='trees'),
     url(r'^tree/(?P<tree>.+)?$','tree', name='tree'),
     url(r'^changesets/(?P<tree>.+)?$','changesets', name='changesets'),
