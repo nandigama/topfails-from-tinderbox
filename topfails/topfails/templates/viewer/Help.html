@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div><font face="Calibri" class="ws11">This web site provides the bird eye view of top failures and other details of Firefox unit tests&nbsp; from the&nbsp; Tinderbox daily runs.</font></div>
+<div><font face="Calibri" class="ws11"><BR></font></div>
+<div><font face="Calibri" class="ws11">Meaning of the Left navigation links</font></div>
+<UL>
+<li><font face="Calibri" class="ws11">Latest Failures : This link provides the list of latest failures from the Tinderbox.</font></li>
+<li><font face="Calibri" class="ws11">Top 25 Failures : This link provides the list of top 25 failures from the entire history of the topfails database. Please note that this data is as complete as the first date we started collecting results. The data we have in the topfails database does not contain all the failures details from the Time ZERO of tinderbox runs.</font></li>
+<li><font face="Calibri" class="ws11">All Failed Tests: This link displays all the known failures that are stored in the topfails DB.</font></li>
+<li><font face="Calibri" class="ws11"><b>Failures from X days</b>: This is a link which allows you to query for failures from NOW till a specific period in the past.</font></li>
+</UL>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example:   2d&nbsp; =&nbsp;&nbsp; 2 days&nbsp; in the past till&nbsp; now </font></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7h&nbsp; =&nbsp;&nbsp; 7 hours in the past till now</font></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5w =&nbsp; 5 weeks in the past till now</font></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1m =&nbsp; 1 month in the past till now</font></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10y =&nbsp; 10 years in the past till now</font></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">Example queries for advanced users <a href="../failswindow/Firefox?window=2w">2 weeks 'Firefox' failures</a></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">Example queries for advanced users <a href="../failswindow/Firefox?window=2d">2 days 'Firefox' failures</a></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">Example queries for advanced users <a href="../failswindow/Firefox?window=24h">24 hours 'Firefox' failures</a></div>
+<div style="margin-left:40px;"><font face="Calibri" class="ws11">Example queries for advanced users <a href="../failswindow/Firefox?window=1m">1 month 'Firefox' failures</a></div>
+{% endblock %}
