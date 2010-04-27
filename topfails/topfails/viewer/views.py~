@@ -42,7 +42,7 @@ def tests(request,tree='Firefox'):
       return render_to_response('viewer/tests.html', { 'tree' : tree, 'tests': [t['test__name'] for t in test_names]})
 
 def test(request,tree='Firefox'):
-  failures = get_list_or_404(TestFailure.objects.filter(build__tree__name__exact=tree).filter(test__name__exact=request.GET['name']).order_by('-build__starttime')[:10000])
+  failures = get_list_or_404(TestFailure.objects.filter(build__tree__name__exact=tree).filter(test__name__exact=request.GET['name']).order_by('-build__starttime')[:1000])
   #if request.GET.has_key('json'):
     #jtext = list(failures)
     #return HttpResponse(json.dumps(jtext))
