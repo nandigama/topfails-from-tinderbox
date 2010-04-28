@@ -49,8 +49,6 @@
 </style>
 
 
-
-
 </head>
 
 <body>
@@ -94,27 +92,26 @@
 <div><font color="#CC4200" face="Tahoma" size="+3"><B>Mozilla Tinderbox Topfails Dashboard</B></font></div>
 </div></div>
 
-<div style="width: 111px;position:absolute; left:311px; top:45px; z-index:2;">
+<div id="ff" style="width: 111px;position:absolute; left:311px; top:45px; z-index:2;">
     <a class="linear calign" title="Click for Firefox Trunk Topfails Dashboard" href="{% url latest tree='Firefox' %}" >
          <span> Firefox </span>
     </a>
 </div>
-<div style="width: 111px;position:absolute; left:423px; top:45px; z-index:2">
+<div id="ff36" style="width: 111px;position:absolute; left:423px; top:45px; z-index:2">
     <a class="linear calign" href="{% url latest tree='Firefox3.6' %}" title="Click for Firefox 3.6 Topfails Dashboard">
          <span> Firefox3.6</span>        
     </a>
 </div>
-<div style="width: 111px;position:absolute; left:535px; top:45px; z-index:2">
+<div id="tb" style="width: 111px;position:absolute; left:535px; top:45px; z-index:2">
     <a class="linear calign" title="Click for Thunderbird Trunk Topfails Dashboard" href="{% url latest tree='Thunderbird' %}">
         <span>Thunderbird</span>
     </a>
 </div>
-<div style="width: 111px;position:absolute; left:647px; top:45px; z-index:2">
+<div id="sm" style="width: 111px;position:absolute; left:647px; top:45px; z-index:2">
     <a class="linear calign" title="Click for SeaMonkey  Topfails Dashboard" href="{% url latest tree='SeaMonkey' %}">
         <span> SeaMonkey</span>
     </a>
 </div>
-
 
 <div id="text2" style="position:absolute; overflow:hidden; left:190px; top:102px; width:800px;  z-index:4">
 {% block content %}
