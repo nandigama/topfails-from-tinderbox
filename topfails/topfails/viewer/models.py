@@ -82,49 +82,34 @@ class TestFailure(models.Model):
     build = models.ForeignKey(Build)
     test = models.ForeignKey(Test)
     failtext = models.CharField(max_length=400, blank=True)
-    
-    
-    
-def get_most_failing_tests(tree):
-    return TestFailure.objects.filter(build__tree__name=tree).values('test__name').annotate(count=models.Count('test__name')).order_by('-count')[:25]
-
-def get_time_failing_tests(tree):
-    return TestFailure.objects.filter(build__tree__name=tree).values('test__name').annotate(count=models.Count('test__name')).order_by('-count')
-
-#This def is never used not intended to be used. I kept it here as a refresher
-def get_latest_fails(tree):
-     cursor = connection.cursor()
-     statement="""SELECT viewer_testfailure.id, viewer_testfailure.build_id, viewer_test.name, viewer_testfailure.failtext
-     FROM viewer_testfailure, viewer_test, viewer_build, viewer_tree
-     WHERE (viewer_testfailure.build_id = viewer_build.id)
-     AND (viewer_build.tree_id = viewer_tree.id)
-     AND ( viewer_testfailure.test_id = viewer_test.id)
-     AND viewer_tree.name ='"""+tree+"""' ORDER BY viewer_build.starttime DESC LIMIT 20"""
-     cursor.execute(statement)
-     for row in cursor:
-       yield row
        
-       
-def get_fails_in_timerange(self,tree):
-  
-  # Get current time, in seconds.
-  endtime = int(time())
-  
-  #print endtime
-  m = re.match("(\d+)([ymwdh])", self)
-  #print m.group(1), m.group(2)
-  if m is None:
-    print >>sys.stderr, "ERROR: bad timespan = '%s'!" % options.timespan
-    sys.exit(1)
-  
-  timespan = int(m.group(1)) * {'y': 365 * 24 * 3600,
-                                'm':  30 * 24 * 3600,
-                                'w':   7 * 24 * 3600,
-                                'd':       24 * 3600,
-                                'h':            3600}[m.group(2)]
-  # Set current time to beginning of requested timespan ending now.
-  curtime = endtime - timespan
-  qs = get_time_failing_tests(tree)
-  return qs.filter(build__starttime__gt=curtime)
+    @classmethod
+    def get_most_failing_tests(cls,tree):
+      return cls.objects.filter(build__tree__name=tree).values('test__name').annotate(count=models.Count('test__name')).order_by('-count')[:25]
+   
+    @classmethod
+    def get_time_failing_tests(cls,tree):
+      return cls.objects.filter(build__tree__name=tree).values('test__name').annotate(count=models.Count('test__name')).order_by('-count')
+    
+    @classmethod
+    def get_fails_in_timerange(cls,period,tree):
+      
+      # Get current time, in seconds.
+      endtime = int(time())
+      
+      m = re.match("(\d+)([ymwdh])", period)
+      if m is None:
+        print >>sys.stderr, "ERROR: bad timespan = '%s'!" % options.timespan
+        sys.exit(1)
+      
+      timespan = int(m.group(1)) * {'y': 365 * 24 * 3600,
+                                    'm':  30 * 24 * 3600,
+                                    'w':   7 * 24 * 3600,
+                                    'd':       24 * 3600,
+                                    'h':            3600}[m.group(2)]
+      # Set current time to beginning of requested timespan ending now.
+      curtime = endtime - timespan
+      qs = cls.get_time_failing_tests(tree)
+      return qs.filter(build__starttime__gt=curtime)
 
     

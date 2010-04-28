@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, get_list_or_404
-from topfails.viewer.models import Build, Tree, Test,TestFailure, OS_CHOICES, get_most_failing_tests, get_fails_in_timerange
+from topfails.viewer.models import Build, Tree, Test,TestFailure, OS_CHOICES
 import re
 from django.http import HttpResponse
 import json
@@ -7,7 +7,7 @@ import json
 def latest(request,tree='Firefox'):
   failures = get_list_or_404(TestFailure.objects.filter(build__tree__name=tree).order_by('-build__starttime')[:20])
   if request.GET.has_key('json'):
-    jtext = [{"Test_name":f.test.name, "Build_status":f.build.status, "Logfile": f.build.tinderboxlink(),"Changeset":f.build.jsonchangesetlink() , "Failure_description":f.failtext} for f in failures]
+    jtext = [{"testname":f.test.name, "buildstatus":f.build.status, "logfile": f.build.tinderboxlink(),"changeset":f.build.jsonchangesetlink() , "failtext":f.failtext} for f in failures]
     return HttpResponse(json.dumps(jtext))
   else:
     return render_to_response('viewer/latest.html', {'failures': failures, 'tree' : tree})
@@ -50,7 +50,7 @@ def test(request,tree='Firefox'):
   return render_to_response('viewer/test.html', {'test': request.GET['name'], 'failures': failures, 'tree' : tree})
 
 def topfails(request,tree='Firefox'):
-  failures = get_most_failing_tests(tree)
+  failures = TestFailure.get_most_failing_tests(tree)
   if request.GET.has_key('json'):
     jtext = list(failures)
     return HttpResponse(json.dumps(jtext))
@@ -84,7 +84,7 @@ def timeline(request,tree='Firefox'):
 def failswindow(request,tree='Firefox'):
   period=request.GET['window']
   m = re.match("(\d+)([ymwdh])", period)
-  failures = get_fails_in_timerange(period,tree)
+  failures = TestFailure.get_fails_in_timerange(period,tree)
   if request.GET.has_key('json'):
     jtext = list(failures)
     return HttpResponse(json.dumps(jtext))
