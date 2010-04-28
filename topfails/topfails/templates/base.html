@@ -3,65 +3,52 @@
 <head>
 <title>Topfails</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<style>
+  .linear{
+     display: block;
 
+     font-family: Helvetica,Arial,sans-serif;
+     font-weight: bold;
+     font-size: 110.5%;
 
-<style type="text/css">
-/*----------Text Styles----------*/
-.ws6 {font-size: 8px;}
-.ws7 {font-size: 9.3px;}
-.ws8 {font-size: 11px;}
-.ws9 {font-size: 12px;}
-.ws10 {font-size: 13px;}
-.ws11 {font-size: 15px;}
-.ws12 {font-size: 16px;}
-.ws14 {font-size: 19px;}
-.ws16 {font-size: 21px;}
-.ws18 {font-size: 24px;}
-.ws20 {font-size: 27px;}
-.ws22 {font-size: 29px;}
-.ws24 {font-size: 32px;}
-.ws26 {font-size: 35px;}
-.ws28 {font-size: 37px;}
-.ws36 {font-size: 48px;}
-.ws48 {font-size: 64px;}
-.ws72 {font-size: 96px;}
-.wpmd {font-size: 13px;font-family: 'Arial';font-style: normal;font-weight: normal;}
-/*----------Para Styles----------*/
-DIV,UL,OL /* Left */
-{
- margin-top: 0px;
- margin-bottom: 0px;
-}
+     
+	   text-decoration: none;
+
+	   padding: 2px;
+
+     -moz-border-radius: 5px;
+       border: 1px solid #000000;
+        
+     color: #999999;
+
+     background-image:url("http://people.mozilla.com/~mnandigama/bg.png")
+   }
+  .linear:hover {
+     color: #cc3300;
+     font-style:italic
+
+ 	 }	
+  .info {
+     font-size: 81%;
+     font-weight: normal;
+   }
+   .ralign{
+     text-align: right;
+   }
+   .lalign {
+     text-align: left;
+   }
+   .calign{
+     text-align: center;
+   }
+  DIV,UL,OL /* Left */
+  {
+     margin-top: 0px;
+     margin-bottom: 0px;
+  }
 </style>
 
 
-<script language="javascript" type="text/javascript">
-<!--
-function SwapImgRestore() {
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-
-function PreloadImages() {
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=PreloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
-
-function FindObject(n, d) {
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=FindObject(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function SwapImage() {
-  var i,j=0,x,a=SwapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=FindObject(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-
-//-->
-</script>
 <script type="text/javascript">
 <!--
 function MyTip(arg)
@@ -87,23 +74,65 @@ function MyTip(arg)
 
 <body>
 
-<div id="nav10d" style="position:absolute; left:3px; top:102px; z-index:0"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav10','','http://people.mozilla.com/~mnandigama/images/nav11363110a.gif',1)" href="{% url latest tree=tree %}" <img name="nav10" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav11363110a.gif')" alt="Latest Failures" border=0 src="http://people.mozilla.com/~mnandigama/images/nav11363110i.gif"></a></div>
-<div id="nav11d" style="position:absolute; left:3px; top:135px; z-index:0"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav11','','http://people.mozilla.com/~mnandigama/images/nav11363111a.gif',1)" href="{% url topfails tree=tree %}"><img name="nav11" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav11363111a.gif')" alt="Top 25 Failures" border=0 src="http://people.mozilla.com/~mnandigama/images/nav11363111i.gif"></a></div>
-<div id="nav12d" style="position:absolute; left:3px; top:168px; z-index:0"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav12','','http://people.mozilla.com/~mnandigama/images/nav11363112a.gif',1)" href="{% url tests tree=tree %}"><img name="nav12" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav11363112a.gif')" alt="All Failed Tests" border=0 src="http://people.mozilla.com/~mnandigama/images/nav11363112i.gif"></a></div>
-<div id="nav13d" style="position:absolute; left:3px; top:201px; z-index:0"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav13','','http://people.mozilla.com/~mnandigama/images/nav11363113a.gif',1)" href="{% url failswindow tree=tree %}?window=7d"<img name="nav13" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav11363113a.gif')" alt="Failures from last X days" border=0 src="http://people.mozilla.com/~mnandigama/images/nav11363113i.gif"></a></div>
-<div id="nav14d" style="position:absolute; left:3px; top:234px; z-index:0"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav14','','http://people.mozilla.com/~mnandigama/images/nav11363114a.gif',1)" href="{% url Help tree=tree %}"><img name="nav14" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav11363114a.gif')" alt="Help" border=0 src="http://people.mozilla.com/~mnandigama/images/nav11363114i.gif"></a></div>
+<div  style="width: 180px;position:absolute; left:3px; top:102px; z-index:0">
+     <a class="linear ralign" href="{% url latest tree=tree %}">
+         <span> Latest Fails</span>
+     </a>
+</div>
 
-<div id="image1" style="position:absolute; overflow:hidden; left:3px; top:1px; width:179px; height:68px; z-index:1"><img src="http://people.mozilla.com/~mnandigama/images/logo-wordmark.png" alt="Firefox Logo" title="http://www.mozilla.com" border=0 width=179 height=68></div>
-<div id="text1" style="position:absolute; overflow:hidden; left:351px; top:2px; width:491px; height:41px; z-index:3">
-<div class="wpmd">
-<div><font color="#CC4200" face="Tahoma" class="ws24"><B>Mozilla Tinderbox Topfails Dashboard</B></font></div>
+<div  style="width: 180px;position:absolute; left:3px; top:135px; z-index:0">
+     <a class="linear ralign" href="{% url topfails tree=tree %}">
+         <span> Top 25 Fails</span>
+     </a>
+</div>
+
+<div  style="width: 180px;position:absolute; left:3px; top:168px; z-index:0">
+     <a class="linear ralign" href="{% url tests tree=tree %}">
+         <span> All Failed Tests</span>
+     </a>
+</div>
+
+<div  style="width: 180px;position:absolute; left:3px; top:201px; z-index:0">
+     <a class="linear ralign" href="{% url failswindow tree=tree %}?window=7d">
+         <span> Fails from X days</span>
+      </a>
+</div>
+
+<div  style="width: 180px;position:absolute; left:3px; top:234px; z-index:0">
+     <a class="linear ralign" href="{% url Help tree=tree %}">
+         <span>Help</span>
+     </a>
+</div>
+
+<div id="image1" style="position:absolute; overflow:hidden; left:3px; top:1px; width:180px; height:68px; z-index:1">
+      <img src="http://people.mozilla.com/~mnandigama/images/logo-wordmark.png" alt="Firefox Logo" title="http://www.mozilla.com" border=0 width=179 height=68>
+</div>
+
+<div id="text1" style="position:absolute; overflow:hidden; left:321px; top:2px; width:591px; height:41px; z-index:3">
+<div>
+<div><font color="#CC4200" face="Tahoma" size="+3"><B>Mozilla Tinderbox Topfails Dashboard</B></font></div>
 </div></div>
 
-<div id="nav20d" style="position:absolute; left:311px; top:45px; z-index:2"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav20','','http://people.mozilla.com/~mnandigama/images/nav14052410a.gif',1)" title="Click for Firefox Trunk Topfails Dashboard" href="{% url latest tree='Firefox' %}" ><img name="nav20" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav14052410a.gif')" alt="Firefox Trunk" border=0 src="http://people.mozilla.com/~mnandigama/images/nav14052410i.gif"></a></div>
-<div id="nav21d" style="position:absolute; left:439px; top:45px; z-index:2"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav21','','http://people.mozilla.com/~mnandigama/images/nav14052411a.gif',1)" href="{% url latest tree='Firefox3.6' %}"><img name="nav21" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav14052411a.gif')" title="Click for Firefox 3.6 Topfails Dashboard" alt="Firefox3.6" border=0 src="http://people.mozilla.com/~mnandigama/images/nav14052411i.gif"></a></div>
-<div id="nav22d" style="position:absolute; left:567px; top:45px; z-index:2"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav22','','http://people.mozilla.com/~mnandigama/images/nav14052412a.gif',1)"  title="Click for Thunderbird Trunk Topfails Dashboard" href="{% url latest tree='Thunderbird' %}"><img name="nav22" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav14052412a.gif')" alt="Thunderbird" border=0 src="http://people.mozilla.com/~mnandigama/images/nav14052412i.gif"></a></div>
-<div id="nav23d" style="position:absolute; left:695px; top:45px; z-index:2"><a onMouseOut="SwapImgRestore()" onMouseOver="SwapImage('nav23','','http://people.mozilla.com/~mnandigama/images/nav14052413a.gif',1)"  title="Click for SeaMonkey  Topfails Dashboard" href="{% url latest tree='SeaMonkey' %}"><img name="nav23" onLoad="PreloadImages('http://people.mozilla.com/~mnandigama/images/nav14052413a.gif')" alt="SeaMonkey" border=0 src="http://people.mozilla.com/~mnandigama/images/nav14052413i.gif"></a></div>
-
+<div style="width: 111px;position:absolute; left:311px; top:45px; z-index:2;">
+    <a class="linear calign" title="Click for Firefox Trunk Topfails Dashboard" href="{% url latest tree='Firefox' %}" >
+         <span> Firefox </span>
+    </a>
+</div>
+<div style="width: 111px;position:absolute; left:423px; top:45px; z-index:2">
+    <a class="linear calign" href="{% url latest tree='Firefox3.6' %}" title="Click for Firefox 3.6 Topfails Dashboard">
+         <span> Firefox3.6</span>        
+    </a>
+</div>
+<div style="width: 111px;position:absolute; left:535px; top:45px; z-index:2">
+    <a class="linear calign" title="Click for Thunderbird Trunk Topfails Dashboard" href="{% url latest tree='Thunderbird' %}">
+        <span>Thunderbird</span>
+    </a>
+</div>
+<div style="width: 111px;position:absolute; left:647px; top:45px; z-index:2">
+    <a class="linear calign" title="Click for SeaMonkey  Topfails Dashboard" href="{% url latest tree='SeaMonkey' %}">
+        <span> SeaMonkey</span>
+    </a>
+</div>
 
 
 <div id="text2" style="position:absolute; overflow:hidden; left:190px; top:102px; width:800px;  z-index:4">
