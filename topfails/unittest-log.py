@@ -184,6 +184,7 @@ def UpdateLogfile(conn, treeid, os, starttime, logfile):
                UPDATE viewer_build SET logfile = %s WHERE tree_id = %s AND os = %s AND starttime = %s AND logfile IS NULL
                """, (logfile, treeid, os, starttime))
   connection.commit()
+
 def InsertBuild(conn, treeid, os, starttime, status, logfile, changeset):
   """Insert a build into the builds table and return the id."""
   conn.execute("""
@@ -192,6 +193,13 @@ def InsertBuild(conn, treeid, os, starttime, status, logfile, changeset):
   connection.commit()
   return conn.lastrowid
 
+def HaveFailRecord(conn,buildid, result, testnames_id):
+  """See if we already have this failRecord in our database."""
+  conn.execute("""
+               SELECT COUNT(*) FROM viewer_testfailure WHERE build_id = %s AND test_id = %s 
+               """, (buildid, testnames_id))
+  return conn.fetchone()[0] == 1
+  
 def InsertTest(conn, buildid, result, testnames_id, description):
   # ToDo: Add column to save result.
   conn.execute("""
@@ -290,7 +298,12 @@ parser.add_option("-p", "--passwd", action="store",
 parser.add_option("-v", "--verbose", action="store_true",
                   dest="verbose", default="False",
                   help="Enable verbose logging")
-
+parser.add_option("--debug", action='store_true',
+                  dest='debug', default=False,
+                  help="enable interactive debugger on exceptions (pdb)")
+parser.add_option("--die", action='store_true',
+                  dest='die', default=False,
+                  help="enable application to die on error")
 (options, args) = parser.parse_args()
 
 logging.basicConfig(level=options.verbose and logging.DEBUG or logging.WARNING)
@@ -377,7 +390,7 @@ while curtime < endtime and chunk < totalchunks:
   if (endtime - curtime) < chunksize:
     chunksize = endtime - curtime
 
-  tboxurl = "http://tinderbox.mozilla.org/showbuilds.cgi?tree=%(tree)s&maxdate=%(maxdate)d&noignore=1&hours=%(hours)d&json=1" \
+  tboxurl = "http://tinderbox.mozilla.org/showbuilds.cgi?tree=%(tree)s&maxdate=%(maxdate)d&noignore=1&hours=%(hours)d&json=1&noignore=1" \
               % {'tree': options.tree,
                  'maxdate': curtime + chunksize, # tbox wants the end time
                  'hours': int(chunksize / S_IN_H)}
@@ -395,7 +408,7 @@ while curtime < endtime and chunk < totalchunks:
     continue
 
   # we only care about unit test boxes
-  unittest_indices = [tboxdata['build_name_index'][x] for x in tboxdata['build_name_index'] if re.search("test|xpc|check", x)]
+  unittest_indices = [tboxdata['build_name_index'][x] for x in tboxdata['build_name_index'] if re.search("ref|mochi|test|xpc|check", x)]
   # read build table
   # 'TestFailed' expected log format is "result | test | optional text".
   testfailedRe = re.compile(r"(TEST-UNEXPECTED-.*) \| (.*) \|(.*)")
@@ -443,15 +456,40 @@ while curtime < endtime and chunk < totalchunks:
         try:
           # Grab the build log.
           log, headers = urllib.urlretrieve("http://tinderbox.mozilla.org/%s/%s" % (options.tree, build['logfile']))
-          gz = GzipFile(log)
+          gz = GzipFile(log).readlines() # I need a list of lines from the build log
           # Look for test failures.
           for line in gz:
+            # Check all lines if they have INFO Running or url=file:/// stuff.
+            # If it is mochitest, we see the former string pattern
+            # If it is jsreftest,crashtest we see the later string pattern.
+            if "INFO Running" in line or "[url = file:///" in line or "INFO | Loading" in line:
+              potentialTestName=line
+              if "[url = file:///" in line:
+                if "?test=" in line:
+                   potentialTestName = potentialTestName.split('?test=')[1][0:-2]
+                else:
+                   potentialTestName = potentialTestName.split('url = ')[1][0:-1]
+              elif "INFO Running" in line:
+                potentialTestName = potentialTestName.split('INFO Running ')[1][0:-4]
+              elif "INFO | Loading" in line:
+                potentialTestName = potentialTestName.split('INFO | Loading ')[1] 
+              else :
+                potentialTestName= "[unittest-log.py: no logged test]"
+                
             m = testfailedRe.match(line)
             if m:
               test = rawtest = m.group(2).strip() or "[unittest-log.py: no logged test]"
+              if 'automation.py' in test or 'automationutils.processLeakLog' in test:
+                if potentialTestName != "":
+                   #import pdb; pdb.set_trace()
+                   test = rawtest = potentialTestName
+                   potentialTestName=""
+
+              # Code bits below try to change back slash to forward slash
+              # and get rid of varibale prepends to the /test/../.. names
+              
               if rawtest.find('\\') != -1:
                 test = rawtest.replace('\\','/')
-                
               if test.find('/') != -1:
                 tup=test.partition('build/')
                 if len(tup[2]) > 2:
@@ -461,10 +499,19 @@ while curtime < endtime and chunk < totalchunks:
                 
               text = m.group(3).strip() or "[unittest-log.py: no logged text]"
               testnames_id=GetOrInsertTest(conn,test)
-              InsertTest(conn, buildid, m.group(1).rstrip(), testnames_id, text)
-        except:
-          logging.error("Unexpected error: %s" % sys.exc_info()[0])
-          #XXX: handle me?
+              if HaveFailRecord(conn,buildid,  m.group(1).rstrip(), testnames_id):
+                 logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
+              else:  
+                 InsertTest(conn, buildid, m.group(1).rstrip(), testnames_id, text)
+        except Exception, e:
+          errstring = "Unexpected error: %s" % e
+          if options.debug:
+            print errstring
+            import pdb; pdb.set_trace()
+          elif options.die:
+            raise
+          else:
+            logging.error(errstring)
 
       # Ignore 'Burning' builds: tests may have run nontheless, but it's safer to discard them :-|
       elif status == BuildStatus.Burning:
