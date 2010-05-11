@@ -25,6 +25,7 @@
 #   Serge Gautherie <sgautherie.bz@free.fr>
 #   Ted Mielczarek <ted.mielczarek@gmail.com>.
 #   Murali Nandigama <Murali.Nandigama@Gmail.COM>
+#   Jeff Hammel <jhammel@mozilla.com>
 #
 # Alternatively, the contents of this file may be used under the terms of
 # either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -47,6 +48,9 @@ from math import ceil
 from optparse import OptionParser
 from gzip import GzipFile
 import binascii
+
+# local import
+import log_parser
 
 try:
   # 'Availability: Unix.'
@@ -407,15 +411,34 @@ while curtime < endtime and chunk < totalchunks:
     print >>sys.stderr, "Error parsing JSON: %s" % inst
     continue
 
+  # dictionary of parsers
+  parsers = {
+    'check': log_parser.CheckParser,
+    'mochitest': log_parser.MochitestParser,
+    'reftest': log_parser.ReftestParser,
+    'jsreftest': log_parser.ReftestParser,
+    'crashtest': log_parser.ReftestParser,
+    'xpcshell': log_parser.XPCshellParser,
+    }
+
+  # regular expression to find the harness
+  harness_regex = r'.* (%s)(-.*)?' % '|'.join(parsers.keys())
+  
   # we only care about unit test boxes
-  unittest_indices = [tboxdata['build_name_index'][x] for x in tboxdata['build_name_index'] if re.search("ref|mochi|test|xpc|check", x)]
-  # read build table
+  unittest_indices = [(logname, index) #tboxdata['build_name_index'][index]
+                      for logname, index in tboxdata['build_name_index'].items()
+                      if re.search("ref|mochi|xpc|check", logname)]
+
   # 'TestFailed' expected log format is "result | test | optional text".
-  testfailedRe = re.compile(r"(TEST-UNEXPECTED-.*) \| (.*) \|(.*)")
+  # testfailedRe = re.compile(r"(TEST-UNEXPECTED-.*) \| (.*) \|(.*)")
+  # XXX ^ to delete
+  
+  # read build table
   for timerow in tboxdata['build_table']:
-    for index in unittest_indices:
+    for logname, index in unittest_indices:
       if index >= len(timerow) or timerow[index] == -1:
         continue
+
       build = timerow[index]
       if 'buildname' not in build or \
          'logfile'   not in build:
@@ -456,53 +479,72 @@ while curtime < endtime and chunk < totalchunks:
         try:
           # Grab the build log.
           log, headers = urllib.urlretrieve("http://tinderbox.mozilla.org/%s/%s" % (options.tree, build['logfile']))
-          gz = GzipFile(log).readlines() # I need a list of lines from the build log
-          # Look for test failures.
-          for line in gz:
-            # Check all lines if they have INFO Running or url=file:/// stuff.
-            # If it is mochitest, we see the former string pattern
-            # If it is jsreftest,crashtest we see the later string pattern.
-            if "INFO Running" in line or "[url = file:///" in line or "INFO | Loading" in line:
-              potentialTestName=line
-              if "[url = file:///" in line:
-                if "?test=" in line:
-                   potentialTestName = potentialTestName.split('?test=')[1][0:-2]
-                else:
-                   potentialTestName = potentialTestName.split('url = ')[1][0:-1]
-              elif "INFO Running" in line:
-                potentialTestName = potentialTestName.split('INFO Running ')[1][0:-4]
-              elif "INFO | Loading" in line:
-                potentialTestName = potentialTestName.split('INFO | Loading ')[1] 
-              else :
-                potentialTestName= "[unittest-log.py: no logged test]"
-                
-            m = testfailedRe.match(line)
-            if m:
-              test = rawtest = m.group(2).strip() or "[unittest-log.py: no logged test]"
-              if 'automation.py' in test or 'automationutils.processLeakLog' in test:
-                if potentialTestName != "":
-                   #import pdb; pdb.set_trace()
-                   test = rawtest = potentialTestName
-                   potentialTestName=""
+          gz = GzipFile(log) # I need a list of lines from the build log
 
-              # Code bits below try to change back slash to forward slash
-              # and get rid of varibale prepends to the /test/../.. names
-              
-              if rawtest.find('\\') != -1:
-                test = rawtest.replace('\\','/')
-              if test.find('/') != -1:
-                tup=test.partition('build/')
-                if len(tup[2]) > 2:
-                  test=tup[2]
-                else :
-                  test=tup[0]
+          # assured to match because we search for this above
+          harness_type = re.match(harness_regex, logname).groups()[0]
+          parser = parsers.get(harness_type, log_parser.LogParser)()
+          failures = parser.parse(gz)
+
+          for failure in failures:
+
+            # convenience variables; can probably delete
+            test = failure['test']
+            text = failure['text']
+            reason = failure['reason']
+            
+            testnames_id=GetOrInsertTest(conn,test)
+            if HaveFailRecord(conn,buildid,  reason, testnames_id):
+              logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
+            else:  
+              InsertTest(conn, buildid, reason, testnames_id, text)
+            
+          
+          # # Look for test failures.
+          # for line in gz.readlines()):
+          #   # Check all lines if they have INFO Running or url=file:/// stuff.
+          #   # If it is mochitest, we see the former string pattern
+          #   # If it is jsreftest,crashtest we see the later string pattern.
+          #   if "INFO Running" in line or "[url = file:///" in line or "INFO | Loading" in line:
+          #     potentialTestName=line
+          #     if "[url = file:///" in line:
+          #       if "?test=" in line:
+          #          potentialTestName = potentialTestName.split('?test=')[1][0:-2]
+          #       else:
+          #          potentialTestName = potentialTestName.split('url = ')[1][0:-1]
+          #     elif "INFO Running" in line:
+          #       potentialTestName = potentialTestName.split('INFO Running ')[1][0:-4]
+          #     elif "INFO | Loading" in line:
+          #       potentialTestName = potentialTestName.split('INFO | Loading ')[1] 
+          #     else :
+          #       potentialTestName= "[unittest-log.py: no logged test]"
                 
-              text = m.group(3).strip() or "[unittest-log.py: no logged text]"
-              testnames_id=GetOrInsertTest(conn,test)
-              if HaveFailRecord(conn,buildid,  m.group(1).rstrip(), testnames_id):
-                 logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
-              else:  
-                 InsertTest(conn, buildid, m.group(1).rstrip(), testnames_id, text)
+          #   m = testfailedRe.match(line)
+          #   if m:
+          #     test = rawtest = m.group(2).strip() or "[unittest-log.py: no logged test]"
+          #     if 'automation.py' in test or 'automationutils.processLeakLog' in test:
+          #       if potentialTestName != "":
+          #          test = rawtest = potentialTestName
+          #          potentialTestName=""
+
+          #     # Code bits below try to change back slash to forward slash
+          #     # and get rid of varibale prepends to the /test/../.. names
+              
+          #     if rawtest.find('\\') != -1:
+          #       test = rawtest.replace('\\','/')
+          #     if test.find('/') != -1:
+          #       tup=test.partition('build/')
+          #       if len(tup[2]) > 2:
+          #         test=tup[2]
+          #       else :
+          #         test=tup[0]
+                
+          #     text = m.group(3).strip() or "[unittest-log.py: no logged text]"
+          #     testnames_id=GetOrInsertTest(conn,test)
+          #     if HaveFailRecord(conn,buildid,  m.group(1).rstrip(), testnames_id):
+          #        logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
+          #     else:  
+          #        InsertTest(conn, buildid, m.group(1).rstrip(), testnames_id, text)
         except Exception, e:
           errstring = "Unexpected error: %s" % e
           if options.debug:
