@@ -477,6 +477,7 @@ while curtime < endtime and chunk < totalchunks:
       elif status == BuildStatus.TestFailed :
         logging.info("Checking build log for '%s' at %d (%s)" % (name, starttime, ctime(starttime)))
         try:
+          failures = []
           # Grab the build log.
           log, headers = urllib.urlretrieve("http://tinderbox.mozilla.org/%s/%s" % (options.tree, build['logfile']))
           gz = GzipFile(log) # I need a list of lines from the build log
@@ -486,6 +487,7 @@ while curtime < endtime and chunk < totalchunks:
           parser = parsers.get(harness_type, log_parser.LogParser)()
           failures = parser.parse(gz)
 
+          # add the failures to the database
           for failure in failures:
 
             # convenience variables; can probably delete
