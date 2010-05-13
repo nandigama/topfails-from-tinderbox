@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h3>Changesets</h3>
-<ul>
-{% for c in changesets %}
-  <li><a href="{% url viewer.views.changeset c %}">{{ c }}</a></li>
-{% endfor %}
-</ul>
-{% endblock %}
