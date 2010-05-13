@@ -1,0 +1,6 @@
+At the minimum, you should set the following environment variables
+
+Assuming you are using BASH shell
+
+export dbuser=<your mysql database username>
+export dbpasswd=<your mysql passwd>
