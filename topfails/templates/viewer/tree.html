@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ tree }}</h3>
+<ul>
+{% for build in newestbuilds %}
+  <li>{{ build.get_os_display }}: {{ build.get_status_display }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

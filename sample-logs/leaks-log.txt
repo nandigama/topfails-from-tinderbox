@@ -1,0 +1,268 @@
+Build Error Summary
+
+s: talos-r3-leopard-007
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 725395 bytes during test execution
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of AsyncStatement with size 48 bytes each (96 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 213 instances of AtomImpl with size 20 bytes each (4260 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of BackstagePass with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of CSSImportRuleImpl with size 48 bytes each (144 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 53 instances of CSSImportantRule with size 16 bytes each (848 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 27 instances of CSSNameSpaceRuleImpl with size 44 bytes each (1188 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 547 instances of CSSStyleRuleImpl with size 48 bytes each (26256 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of Connection with size 100 bytes each (300 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of DR_State with size 40 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of History with size 44 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of HoldJSObjects with size 4 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of ImageObserver with size 8 bytes each (24 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of LiteralImpl with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 15 instances of Loader with size 192 bytes each (2880 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of MatchAutoCompleteFunction with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of NameSpaceManagerImpl with size 48 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of PrincipalHolder with size 16 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of RDFServiceImpl with size 276 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 13 instances of RuleHash with size 172 bytes each (2236 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of Service with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 69 instances of Statement with size 60 bytes each (4140 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of StatementParams with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of StringAdopt with size 1 bytes each (2 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 4 instances of URIAndPrincipalHashKey with size 12 bytes each (48 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of UploadLastDir with size 56 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of XPCContext with size 40 bytes each (560 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 55 instances of XPCNativeInterface with size 24 bytes each (1320 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 55 instances of XPCNativeMember with size 12 bytes each (660 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 50 instances of XPCNativeScriptableInfo with size 8 bytes each (400 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of XPCNativeScriptableShared with size 116 bytes each (696 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 22 instances of XPCNativeSet with size 8 bytes each (176 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 124 instances of XPCWrappedNative with size 56 bytes each (6944 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 52 instances of XPCWrappedNativeProto with size 32 bytes each (1664 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 46 instances of XPCWrappedNativeScope with size 64 bytes each (2944 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 23 instances of gfxFont with size 72 bytes each (1656 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 10 instances of gfxFontEntry with size 44 bytes each (440 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 8 instances of gfxGlyphExtents with size 40 bytes each (320 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 57 instances of gfxTextRun with size 96 bytes each (5472 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 11 instances of gfxTextRunFactory with size 12 bytes each (132 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of imgCacheEntry with size 32 bytes each (96 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of imgContainer with size 144 bytes each (432 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of imgLoader with size 44 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of imgRequest with size 152 bytes each (456 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of imgRequestProxy with size 44 bytes each (132 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of mozStorageFunctionGetUnreversedHost with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsAnnotationService with size 80 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 197 instances of nsAtomList with size 8 bytes each (1576 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 356 instances of nsAttrSelector with size 32 bytes each (11392 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsBaseURLParser with size 12 bytes each (36 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsBasicDecoderSupport with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsBidiKeyboard with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsBinaryOutputStream with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 15 instances of nsBindingManager with size 256 bytes each (3840 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsBoxLayout with size 12 bytes each (24 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsBufferedOutputStream with size 60 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsBufferedStream with size 44 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSAural with size 136 bytes each (816 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSBreaks with size 32 bytes each (192 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSColor with size 52 bytes each (312 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSColumn with size 48 bytes each (288 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSContent with size 24 bytes each (144 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 12 instances of nsCSSCornerSizes with size 64 bytes each (768 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 547 instances of nsCSSDeclaration with size 32 bytes each (17504 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSDisplay with size 188 bytes each (1128 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSFont with size 88 bytes each (528 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSList with size 56 bytes each (336 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSMargin with size 596 bytes each (3576 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 4 instances of nsCSSMediaRule with size 40 bytes each (160 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSPage with size 24 bytes each (144 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSPosition with size 96 bytes each (576 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 61 instances of nsCSSRect with size 32 bytes each (1952 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 581 instances of nsCSSRule with size 20 bytes each (11620 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 12 instances of nsCSSRuleProcessor with size 28 bytes each (336 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSSVG with size 252 bytes each (1512 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsCSSScanner with size 1008 bytes each (3024 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1636 instances of nsCSSSelector with size 40 bytes each (65440 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1166 instances of nsCSSSelectorList with size 12 bytes each (13992 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 22 instances of nsCSSStyleSheet with size 72 bytes each (1584 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 21 instances of nsCSSStyleSheetInner with size 80 bytes each (1680 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSTable with size 64 bytes each (384 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSText with size 100 bytes each (600 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSUserInterface with size 60 bytes each (360 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSValue::Array with size 12 bytes each (72 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsCSSValue::Image with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 152 instances of nsCSSValue::URL with size 24 bytes each (3648 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 275 instances of nsCSSValueList with size 12 bytes each (3300 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSValueListRect with size 16 bytes each (96 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 93 instances of nsCSSValuePair with size 16 bytes each (1488 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 12 instances of nsCSSValuePairList with size 20 bytes each (240 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsCSSXUL with size 56 bytes each (336 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 886 instances of nsCStringKey with size 20 bytes each (17720 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 5 instances of nsCategoryObserver with size 60 bytes each (300 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsCharsetAlias2 with size 28 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsCharsetConverterManager with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 8 instances of nsChildContentList with size 20 bytes each (160 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsCollationMacUC with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 18 instances of nsCommentNode with size 56 bytes each (1008 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsConsoleMessage with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsConsoleService with size 80 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsContentPolicy with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDNSService with size 48 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDOMClassInfo with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDOMDocumentType with size 104 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDOMEventGroup with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDOMStorageManager with size 52 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDOMThreadService with size 152 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDateTimeFormatMac with size 40 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDeque with size 52 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDocShell::InterfaceRequestorProxy with size 16 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsDocument with size 668 bytes each (9352 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsDownloadManager with size 64 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsEntropyCollector with size 1048 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsErrorService with size 132 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsEventListenerManager with size 96 bytes each (576 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsEventListenerThisTranslator with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsExceptionManager with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsExtensibleStringBundle with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsExternalHelperAppService with size 48 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsFastLoadFileWriter with size 232 bytes each (464 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsFastLoadService with size 80 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsFileOutputStream with size 28 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsFileStream with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsFocusManager with size 52 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsFrameList with size 8 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 19 instances of nsGenericDOMDataNode with size 52 bytes each (988 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 285 instances of nsGenericElement with size 48 bytes each (13680 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsGenericFactory with size 20 bytes each (60 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsGlobalChromeWindow with size 476 bytes each (952 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsGlobalWindow with size 468 bytes each (936 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsGlobalWindowObserver with size 16 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsHTMLCSSStyleSheet with size 24 bytes each (336 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsHTMLDNSPrefetch::nsDeferrals with size 4136 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsHTMLDNSPrefetch::nsListener with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsHTMLInputElement with size 136 bytes each (408 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsHTMLSpanElement with size 52 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsHTMLStyleSheet with size 76 bytes each (1064 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsHTMLStyleSheet::GenericTableRule with size 12 bytes each (168 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsHTMLTextAreaElement with size 88 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1256 instances of nsHashKey with size 8 bytes each (10048 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 15 instances of nsHashPropertyBag with size 48 bytes each (720 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 250 instances of nsHashtable with size 44 bytes each (11000 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 581 instances of nsHtml5AttributeName with size 16 bytes each (9296 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 391 instances of nsHtml5ElementName with size 28 bytes each (10948 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsHtml5HtmlAttributes with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsIDNService with size 64 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsIOService with size 124 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsIdleServiceDaily with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsIdleServiceX with size 32 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsImageFrame::IconLoad with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsIsOfflineSQLFunction with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsJAR with size 1172 bytes each (3516 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsJARChannel with size 188 bytes each (2632 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsJARInputStream with size 120 bytes each (1680 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsJARInputThunk with size 56 bytes each (784 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsJARProtocolHandler with size 28 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsJARURI with size 44 bytes each (616 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsJISx4051LineBreaker with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 13 instances of nsJSContext with size 64 bytes each (832 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsJSEventListener with size 32 bytes each (64 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 41 instances of nsJSID with size 36 bytes each (1476 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsLanguageAtomService with size 56 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsLayoutStatics with size 1 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsLayoutStylesheetCache with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsLoadGroup with size 8 bytes each (24 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 38 instances of nsLocalFile with size 1048 bytes each (39824 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 7 instances of nsMediaList with size 24 bytes each (168 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsMetaCharsetObserver with size 40 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsNativeThemeCocoa with size 40 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsNavBookmarks with size 224 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsNavHistory with size 508 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsNetworkLinkService with size 28 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 187 instances of nsNodeInfo with size 32 bytes each (5984 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 16 instances of nsNodeInfoManager with size 40 bytes each (640 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 18 instances of nsNullPrincipal with size 36 bytes each (648 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 18 instances of nsNullPrincipalURI with size 36 bytes each (648 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsObserverEntry with size 468 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsObserverService with size 48 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsOnloadBlocker with size 12 bytes each (168 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsParserService with size 68 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 24 instances of nsPersistentProperties with size 80 bytes each (1920 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 5 instances of nsPrefBranch with size 52 bytes each (260 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3162 instances of nsPrefOldCallback with size 32 bytes each (101184 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsPrefService with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 122 instances of nsPrincipal with size 76 bytes each (9272 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsPrivateBrowsingObserver with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsProperties with size 8 bytes each (24 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 416 instances of nsPseudoClassList with size 16 bytes each (6656 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsRDFResource with size 28 bytes each (84 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsRadioVisitor with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsRangeUtils with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsRect with size 16 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsRepeatService with size 24 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsReverseStringSQLFunction with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsSameOriginChecker with size 16 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsSampleWordBreaker with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 87 instances of nsScriptError with size 72 bytes each (6264 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsScriptLoader with size 48 bytes each (672 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsScriptLoaderObserverProxy with size 16 bytes each (224 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsScriptNameSpaceManager with size 40 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsScriptSecurityManager with size 92 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 4 instances of nsSimpleURI with size 8 bytes each (32 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsSocketTransportService with size 1684 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 512 instances of nsStandardURL with size 184 bytes each (94208 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 4 instances of nsStaticCaseInsensitiveNameTable with size 48 bytes each (192 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6002 instances of nsStringBuffer with size 8 bytes each (48016 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 23 instances of nsStringBundle with size 40 bytes each (920 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsStringBundleService with size 112 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsSupportsArray with size 56 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsSupportsCStringImpl with size 24 bytes each (72 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsSystemPrincipal with size 36 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1462 instances of nsTArray_base with size 4 bytes each (5848 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 19 instances of nsTextFragment with size 8 bytes each (152 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsThread with size 72 bytes each (216 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 5 instances of nsTimerImpl with size 60 bytes each (300 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 112 instances of nsURIHashKey with size 8 bytes each (896 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsUnicodeNormalizer with size 12 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 9 instances of nsVariant with size 48 bytes each (432 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 265 instances of nsVoidArray with size 4 bytes each (1060 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 24 instances of nsWeakReference with size 16 bytes each (384 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 12 instances of nsXBLDocGlobalObject with size 28 bytes each (336 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsXBLDocumentInfo with size 44 bytes each (616 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 22 instances of nsXBLEventHandler with size 16 bytes each (352 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 31 instances of nsXBLInsertionPointEntry with size 20 bytes each (620 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 7 instances of nsXBLKeyEventHandler with size 24 bytes each (168 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsXBLParameter with size 8 bytes each (112 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 39 instances of nsXBLProtoImpl with size 32 bytes each (1248 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 31 instances of nsXBLProtoImplField with size 24 bytes each (744 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 90 instances of nsXBLProtoImplMethod with size 20 bytes each (1800 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 125 instances of nsXBLProtoImplProperty with size 28 bytes each (3500 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 74 instances of nsXBLPrototypeBinding with size 60 bytes each (4440 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsXBLPrototypeResources with size 12 bytes each (168 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsXBLResource with size 20 bytes each (40 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsXBLResourceLoader with size 36 bytes each (504 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXBLService with size 56 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 72 instances of nsXBLTextWithLineNumber with size 8 bytes each (576 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 24 instances of nsXBLUncompiledMethod with size 16 bytes each (384 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 14 instances of nsXMLDocument with size 672 bytes each (9408 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 133 instances of nsXMLElement with size 52 bytes each (6916 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 47 instances of nsXPCComponents with size 60 bytes each (2820 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 44 instances of nsXPCComponents_Classes with size 20 bytes each (880 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXPCComponents_Constructor with size 20 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 42 instances of nsXPCComponents_ID with size 20 bytes each (840 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 44 instances of nsXPCComponents_Interfaces with size 28 bytes each (1232 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 29 instances of nsXPCComponents_Results with size 20 bytes each (580 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 37 instances of nsXPCComponents_Utils with size 24 bytes each (888 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 2 instances of nsXPCComponents_utils_Sandbox with size 16 bytes each (32 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXPCWrappedJS with size 60 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXPCWrappedJSClass with size 44 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXPConnect with size 104 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXTFService with size 44 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 147 instances of nsXULElement with size 60 bytes each (8820 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXULFastLoadFileIO with size 28 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXULPopupManager with size 68 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 391 instances of nsXULPrototypeAttribute with size 12 bytes each (4692 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsXULPrototypeCache with size 176 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 147 instances of nsXULPrototypeElement with size 32 bytes each (4704 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 3 instances of nsZipArchive with size 1060 bytes each (3180 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 6 instances of nsZipHandle with size 16 bytes each (96 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of nsZipReaderCache with size 76 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of xpcPerThreadData with size 48 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of xptiFile with size 32 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 57 instances of xptiInterfaceInfo with size 20 bytes each (1140 bytes total)
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of xptiInterfaceInfoManager with size 100 bytes
+TEST-UNEXPECTED-FAIL | automationutils.processLeakLog() | leaked 1 instance of xptiWorkingSet with size 52 bytes
