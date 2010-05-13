@@ -49,8 +49,9 @@ from optparse import OptionParser
 from gzip import GzipFile
 import binascii
 
-# local import
+# local imports
 import log_parser
+import mappings
 
 try:
   # 'Availability: Unix.'
@@ -82,12 +83,6 @@ chunksize = 24 * S_IN_H
 # seconds between requests
 SLEEP_TIME = 1
 
-class OS():
-  Windows = 0
-  Mac = 1
-  Linux = 2
-  Unknown = 3
-
 class BuildStatus():
   # Unavailable builds to skip.
   # Values need (only) to be less than the 'Success' one.
@@ -109,15 +104,6 @@ def FindChangesetInScrape(scrape):
     if m:
       return m.group(1)
   return None
-
-def OSFromBuilderName(name):
-  if name.startswith("Linux") or name.startswith("Rev3 Fedora") or name.startswith("Fedora"):
-    return OS.Linux
-  if name.startswith("MacOSX") or name.startswith("OS X") or name.startswith("Rev3 MacOSX"):
-    return OS.Mac
-  if name.startswith("WINNT"):
-    return OS.Windows
-  return OS.Unknown
 
 buildStatuses = {
   # "No build in progress".
@@ -175,25 +161,25 @@ def GetOrInsertTest(conn, testname):
   connection.commit()
   return conn.lastrowid
 
-def HaveBuild(conn, treeid, os, starttime):
+def HaveBuild(conn, treeid, _os, starttime):
   """See if we already have this build in our database."""
   conn.execute("""
                SELECT COUNT(*) FROM viewer_build WHERE tree_id = %s AND os = %s AND starttime = %s
-               """, (treeid, os, starttime))
+               """, (treeid, _os, starttime))
   return conn.fetchone()[0] == 1
 
-def UpdateLogfile(conn, treeid, os, starttime, logfile):
+def UpdateLogfile(conn, treeid, _os, starttime, logfile):
   """Update empty 'logfile' for a given build (added in db schema v1)."""
   conn.execute("""
                UPDATE viewer_build SET logfile = %s WHERE tree_id = %s AND os = %s AND starttime = %s AND logfile IS NULL
-               """, (logfile, treeid, os, starttime))
+               """, (logfile, treeid, _os, starttime))
   connection.commit()
 
-def InsertBuild(conn, treeid, os, starttime, status, logfile, changeset):
+def InsertBuild(conn, treeid, _os, starttime, status, logfile, changeset):
   """Insert a build into the builds table and return the id."""
   conn.execute("""
                INSERT INTO viewer_build (tree_id, os, starttime, status, logfile, changeset) VALUES (%s, %s, %s, %s, %s, %s)
-               """, (treeid, os, starttime, status, logfile, changeset))
+               """, (treeid, _os, starttime, status, logfile, changeset))
   connection.commit()
   return conn.lastrowid
 
@@ -309,6 +295,10 @@ parser.add_option("--die", action='store_true',
                   dest='die', default=False,
                   help="enable application to die on error")
 (options, args) = parser.parse_args()
+
+# check parsed options
+if options.tree not in mappings.trees:
+  parser.error("Unknown tree: '%s'; should be one of [%s]" % (options.tree, ', '.join(mappings.trees)))
 
 logging.basicConfig(level=options.verbose and logging.DEBUG or logging.WARNING)
 
@@ -450,14 +440,18 @@ while curtime < endtime and chunk < totalchunks:
         continue
 
       name = build['buildname']
-      os = OSFromBuilderName(name)
+      build_name_dict = mappings.parse_build_name(name)
+      if build_name_dict:
+        _os = OS_to_index[build_name_dict['os']]
+      else:
+        _os = -1 # UNKNOWN
       starttime = int(build['buildtime'])
       # skip builds we've already seen
-      if HaveBuild(conn, treeid, os, starttime):
+      if HaveBuild(conn, treeid, _os, starttime):
         logging.info("Skipping already seen build '%s' at %d (%s)" % (name, starttime, ctime(starttime)))
 
         # Call 'UpdateLogfile()' anyway.
-        UpdateLogfile(conn, treeid, os, starttime, build['logfile'])
+        UpdateLogfile(conn, treeid, _os, starttime, build['logfile'])
         continue
 
       # must have scrape data for changeset
@@ -467,7 +461,7 @@ while curtime < endtime and chunk < totalchunks:
       if changeset is None:
         continue
 
-      buildid = InsertBuild(conn, treeid, os, starttime, status, build['logfile'], changeset)
+      buildid = InsertBuild(conn, treeid, _os, starttime, status, build['logfile'], changeset)
 
       # 'Success' is fine as is.
       if status == BuildStatus.Success:
