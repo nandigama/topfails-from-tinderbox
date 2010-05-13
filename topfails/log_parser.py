@@ -68,26 +68,29 @@ class LogParser(object):
     """return potential test name [None by default]"""
     return None
 
-  def processTestName(self, test, reason, potentialTestName):
+  def processTestName(self, test, reason, potentialTestName, lines, idx):
     """substitute the potential name for the test (if applicable)"""
 
     # for process crash, take the test-runner (automation) as the test failure
     # (as already reported in test) and reset the potentialTestName to None
     if 'PROCESS-CRASH' in reason:
-      return test
+      return test, idx
 
     # an automation.py failure will ALWAYS be followed by a
     # automationutils.processLeakLog line;  so send a None here
     # which will cause the parsing to continue and don't record this failure
     if 'automation.py' in test:
-      return None
+      return None, idx
 
     if 'automationutils.processLeakLog' and (potentialTestName is not None):
-      return potentialTestName
+      len_lines = len(lines)
+      while (idx+1) < len_lines and ('automationutils.processLeakLog' in lines[idx+1]):
+        idx += 1
+      return potentialTestName, idx
     
     # if these conditions are not met, return
     # the test name and potentialTestName untouched
-    return test # no name substitution
+    return test, idx # no name substitution
     
   def parse(self, fp):
     """
@@ -111,6 +114,7 @@ class LogParser(object):
       # test to see if the line is a failure
       m = self.testfailedRe.match(line)
       if not m:
+        idx += 1
         continue
 
       # reason for failure [TEST-UNEXPECTED-.* or PROCESS-CRASH]
@@ -128,9 +132,10 @@ class LogParser(object):
       else:
         # substitute potentialTestName for the test name if
         # test is automation.py or automationutils.processLeakLog
-        test = self.processPotentialTestName(test, reason, potentialTestName)
+        test, idx = self.processTestName(test, reason, potentialTestName, lines, idx)
 
-        if test is None: # don't add this test
+        if test is None: # don't add this test (and don't reset potentialTestName)
+          idx += 1
           continue
 
       # reset potentialTestName

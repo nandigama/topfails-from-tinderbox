@@ -500,53 +500,7 @@ while curtime < endtime and chunk < totalchunks:
               logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
             else:  
               InsertTest(conn, buildid, reason, testnames_id, text)
-            
-          
-          # # Look for test failures.
-          # for line in gz.readlines()):
-          #   # Check all lines if they have INFO Running or url=file:/// stuff.
-          #   # If it is mochitest, we see the former string pattern
-          #   # If it is jsreftest,crashtest we see the later string pattern.
-          #   if "INFO Running" in line or "[url = file:///" in line or "INFO | Loading" in line:
-          #     potentialTestName=line
-          #     if "[url = file:///" in line:
-          #       if "?test=" in line:
-          #          potentialTestName = potentialTestName.split('?test=')[1][0:-2]
-          #       else:
-          #          potentialTestName = potentialTestName.split('url = ')[1][0:-1]
-          #     elif "INFO Running" in line:
-          #       potentialTestName = potentialTestName.split('INFO Running ')[1][0:-4]
-          #     elif "INFO | Loading" in line:
-          #       potentialTestName = potentialTestName.split('INFO | Loading ')[1] 
-          #     else :
-          #       potentialTestName= "[unittest-log.py: no logged test]"
-                
-          #   m = testfailedRe.match(line)
-          #   if m:
-          #     test = rawtest = m.group(2).strip() or "[unittest-log.py: no logged test]"
-          #     if 'automation.py' in test or 'automationutils.processLeakLog' in test:
-          #       if potentialTestName != "":
-          #          test = rawtest = potentialTestName
-          #          potentialTestName=""
-
-          #     # Code bits below try to change back slash to forward slash
-          #     # and get rid of varibale prepends to the /test/../.. names
-              
-          #     if rawtest.find('\\') != -1:
-          #       test = rawtest.replace('\\','/')
-          #     if test.find('/') != -1:
-          #       tup=test.partition('build/')
-          #       if len(tup[2]) > 2:
-          #         test=tup[2]
-          #       else :
-          #         test=tup[0]
-                
-          #     text = m.group(3).strip() or "[unittest-log.py: no logged text]"
-          #     testnames_id=GetOrInsertTest(conn,test)
-          #     if HaveFailRecord(conn,buildid,  m.group(1).rstrip(), testnames_id):
-          #        logging.info("Skipping already recorded failure '%s' in build with id '%s' with failure record '%s' " % (test, buildid, text))
-          #     else:  
-          #        InsertTest(conn, buildid, m.group(1).rstrip(), testnames_id, text)
+                      
         except Exception, e:
           errstring = "Unexpected error: %s" % e
           if options.debug:
