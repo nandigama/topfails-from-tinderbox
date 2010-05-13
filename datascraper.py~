@@ -50,7 +50,7 @@ from gzip import GzipFile
 import binascii
 
 # local imports
-import logparser
+import log_parser
 import mappings
 
 try:
