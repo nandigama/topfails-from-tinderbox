@@ -352,17 +352,25 @@ if createdb:
     print "Error %d: %s" % (e.args[0], e.args[1])
     sys.exit (1)
   try:
-    connection  =  MySQLdb.connect (host  =  options.dbhost,
-                                      port  =  int(options.dbport),
-                                      db  =  options.db,
-                                      user  =  options.dbuser,
-                                      passwd  =  options.dbpasswd)
+    connection = MySQLdb.connect(host=options.dbhost,
+                                 port=int(options.dbport),
+                                 db=options.db,
+                                 user=options.dbuser,
+                                 passwd=options.dbpasswd)
     conn=connection.cursor()
   except MySQLdb.Error, e:
     print "Error %d: %s" % (e.args[0], e.args[1])
     sys.exit(1)
-  
-  CreateDBSchema(conn)
+
+  # if the database doesn't exist, create the schema using django by
+  # running models.py syncdb
+  # set the dbuser and dbpasswd environment vsariables for settings.py
+  # to work properly
+  os.environ['dbuser'] = options.dbuser
+  os.environ['dbpasswd'] = options.dbpasswd
+  from django.core.management import execute_manager
+  import settings
+  execute_manager(settings, ['manage.py','syncdb'])
 
 
 treeid = GetOrInsertTree(conn, options.tree)
@@ -403,12 +411,12 @@ while curtime < endtime and chunk < totalchunks:
 
   # dictionary of parsers
   parsers = {
-    'check': log_parser.CheckParser,
-    'mochitest': log_parser.MochitestParser,
-    'reftest': log_parser.ReftestParser,
-    'jsreftest': log_parser.ReftestParser,
-    'crashtest': log_parser.ReftestParser,
-    'xpcshell': log_parser.XPCshellParser,
+    'check': logparser.CheckParser,
+    'mochitest': logparser.MochitestParser,
+    'reftest': logparser.ReftestParser,
+    'jsreftest': logparser.ReftestParser,
+    'crashtest': logparser.ReftestParser,
+    'xpcshell': logparser.XPCshellParser,
     }
 
   # regular expression to find the harness
@@ -478,7 +486,7 @@ while curtime < endtime and chunk < totalchunks:
 
           # assured to match because we search for this above
           harness_type = re.match(harness_regex, logname).groups()[0]
-          parser = parsers.get(harness_type, log_parser.LogParser)()
+          parser = parsers.get(harness_type, logparser.LogParser)()
           failures = parser.parse(gz)
 
           # add the failures to the database

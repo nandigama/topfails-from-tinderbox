@@ -2,19 +2,21 @@ import re
 from django.db import models, connection
 from datetime import datetime
 from time import ctime, sleep, time
+from topfails.mappings import OSes
 
-class OS():
-  Windows = 0
-  Mac = 1
-  Linux = 2
-  Unknown = 3
+# class OS():
+#   Windows = 0
+#   Mac = 1
+#   Linux = 2
+#   Unknown = 3
 
-OS_CHOICES = (
-    (OS.Windows, 'Windows'),
-    (OS.Mac, 'Mac'),
-    (OS.Linux, 'Linux'),
-    (OS.Unknown, 'Unknown')
-)
+# OS_CHOICES = (
+#     (OS.Windows, 'Windows'),
+#     (OS.Mac, 'Mac'),
+#     (OS.Linux, 'Linux'),
+#     (OS.Unknown, 'Unknown')
+# )
+OS_CHOICES = tuple([(index, OS) for index, OS in enumerate(OSes)])
 
 class BuildStatus():
   Success = 0

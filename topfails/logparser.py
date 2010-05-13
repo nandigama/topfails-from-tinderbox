@@ -152,6 +152,9 @@ class LogParser(object):
         else :
           test=tup[0]
 
+      # remove whitespace and trailing dots
+      test = test.strip().rstrip('.')
+          
       # append interesting data to failures return value
       failures.append({'test': test, 'text': text, 'reason': reason})
 
